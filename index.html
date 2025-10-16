@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Agung Yuda Prayogo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="assets/3x4 Merah.jpg" alt="Foto Profil" class="profile-img">
+    <h1>AGUNG YUDA PRAYOGO</h1>
+    <p>IT SUPPORT</p>
+    <div class="header-contact">
+      <p>
+        📞 <a href="tel:+6285773214572">+62 857-7321-4572</a> &nbsp; | &nbsp;
+        ✉️ <a href="mailto:agungyudaprayogojob@gmail.com">agungyudaprayogojob@gmail.com</a> &nbsp; | &nbsp;
+        💼 <a href="https://www.linkedin.com/in/agung-yuda-prayogo" target="_blank">linkedin.com/in/agung-yuda-prayogo</a>
+      </p>
+    </div>
+    <div style="text-align:center; margin-top:10px;">
+      <button onclick="checkAdmin()" class="login-btn">🔑 Login Admin</button>
+    </div>
+  </header>
+
+  <!-- Tentang Saya -->
+  <section id="about">
+    <h2>Tentang Saya</h2>
+    <p>
+      Lulusan S1 Program Studi Teknik Informatika dengan minat di bidang IT Support. 
+      Terampil dalam pemahaman dasar Networking, Operating System, Hardware & Software Computer, Troubleshooting, Microsoft Office, Data Entry. 
+      Cepat belajar, mampu bekerja sama dalam tim, dan siap mendukung kelancaran operasional IT perusahaan.
+    </p>
+  </section>
+
+  <!-- Keahlian -->
+  <section id="skills">
+    <h2>Keahlian</h2>
+    <h3>Hard Skills</h3>
+    <ul>
+      <li>Networking (Troubleshooting & Configuration)</li>
+      <li>Database Management (MySQL, SQL)</li>
+      <li>Hardware & Software (Installation, Maintenance, Repair)</li>
+      <li>System & Network Administration</li>
+      <li>Remote Access (TeamViewer, AnyDesk)</li>
+    </ul>
+    <h3>Soft Skills</h3>
+    <ul>
+      <li>Komunikasi Efektif</li>
+      <li>Kerja Tim</li>
+      <li>Pemecahan Masalah</li>
+      <li>Disiplin & Tanggung Jawab</li>
+      <li>Belajar Mandiri</li>
+      <li>Berfikir Kritis</li>
+    </ul>
+  </section>
+
+  <!-- Upload Berkas -->
+  <section id="upload">
+    <h2>Berkas</h2>
+    <p>CV, SKL/Ijazah, Sertifikat</p>
+    <form class="upload-form" id="uploadForm">
+      <input type="file" id="fileInput" accept="*/*">
+      <button type="button" id="previewBtn">Upload & Simpan Berkas</button>
+    </form>
+    <div id="previewArea" class="preview-container"></div>
+  </section>
+
+  <!-- Proyek -->
+  <section id="projects">
+    <h2>Proyek / Dokumentasi</h2>
+
+    <div class="project">
+      <h3>1. Membuat Portfolio Basis Website</h3>
+      <p>Visual Studio Code (On Process)</p>
+      <form class="upload-form">
+        <input type="file" id="projectFileInput1" accept="*/*">
+        <button type="button" onclick="uploadProjectFile(1)">Upload & Simpan Proyek</button>
+      </form>
+      <div id="projectPreview1" class="preview-container"></div>
+    </div>
+
+    <div class="project">
+      <h3>2. Networking</h3>
+      <p>Konfigurasi jaringan Client-Server (On Process)</p>
+      <form class="upload-form">
+        <input type="file" id="projectFileInput2" accept="*/*">
+        <button type="button" onclick="uploadProjectFile(2)">Upload & Simpan Proyek</button>
+      </form>
+      <div id="projectPreview2" class="preview-container"></div>
+    </div>
+  </section>
+
+  <script>
+    const previewArea = document.getElementById('previewArea');
+
+    function addFile(name, type, dataUrl, container, storageKey) {
+      let files = JSON.parse(localStorage.getItem(storageKey)) || [];
+      files.push({name, type, data: dataUrl});
+      localStorage.setItem(storageKey, JSON.stringify(files));
+      addFileToContainer(name, type, dataUrl, container, storageKey, files.length - 1);
+    }
+
+    function addFileToContainer(name, type, dataUrl, container, storageKey, index) {
+      const item = document.createElement('div');
+      item.className = 'preview-item';
+      let html = `<h4>${name}</h4>`;
+      if(type.startsWith('image/')) html += `<img src="${dataUrl}" alt="${name}">`;
+      else if(type === 'application/pdf') html += `<embed src="${dataUrl}" width="180" height="200">`;
+      else html += `<p>📄 ${name}</p>`;
+
+      // Publik bisa download
+      html += `<br><a href="${dataUrl}" download="${name}" class="open-link">⬇️ Download</a>`;
+
+      // Admin bisa hapus
+      if(document.body.classList.contains('admin-mode')) {
+        html += `<br><button class="delete-btn" onclick="deleteFile('${storageKey}', ${index}, this)">🗑️ Hapus</button>`;
+      }
+
+      item.innerHTML = html;
+      container.appendChild(item);
+    }
+
+    function loadFiles(storageKey, container) {
+      const files = JSON.parse(localStorage.getItem(storageKey)) || [];
+      container.innerHTML = '';
+      files.forEach((f,i)=> addFileToContainer(f.name, f.type, f.data, container, storageKey, i));
+    }
+
+    function deleteFile(storageKey, index, btn) {
+      let files = JSON.parse(localStorage.getItem(storageKey)) || [];
+      files.splice(index,1);
+      localStorage.setItem(storageKey, JSON.stringify(files));
+      btn.parentElement.remove();
+    }
+
+    // Upload berkas utama
+    document.getElementById('previewBtn').addEventListener('click', () => {
+      const file = document.getElementById('fileInput').files[0];
+      if(!file) return alert("Silakan pilih file terlebih dahulu.");
+      const reader = new FileReader();
+      reader.onload = (e) => addFile(file.name, file.type, e.target.result, previewArea, 'savedFiles');
+      reader.readAsDataURL(file);
+    });
+
+    // Upload proyek
+    function uploadProjectFile(id) {
+      const input = document.getElementById(`projectFileInput${id}`);
+      const file = input.files[0];
+      if(!file) return alert("Silakan pilih file terlebih dahulu.");
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const container = document.getElementById(`projectPreview${id}`);
+        addFile(file.name, file.type, e.target.result, container, `projectFiles${id}`);
+        input.value = '';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Load semua file saat reload
+    window.onload = () => {
+      loadFiles('savedFiles', previewArea);
+      [1,2].forEach(id => loadFiles(`projectFiles${id}`, document.getElementById(`projectPreview${id}`)));
+    };
+
+    // Login admin
+    function checkAdmin() {
+      const password = prompt("Masukkan kata sandi admin:");
+      if(password === "Agung050200") {
+        document.body.classList.add("admin-mode");
+        alert("✅ Mode admin aktif. Tombol upload & hapus muncul.");
+        loadFiles('savedFiles', previewArea);
+        [1,2].forEach(id => loadFiles(`projectFiles${id}`, document.getElementById(`projectPreview${id}`)));
+      } else {
+        alert("🔒 Mode publik: hanya bisa download file.");
+      }
+    }
+  </script>
+</body>
+</html>
