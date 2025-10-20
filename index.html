@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=900">
+  <title>Portfolio - Agung Yuda Prayogo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <img src="assets/images/4x6 Merah Jas.jpg" alt="Foto Profil" class="profile-img">
+    <h1>AGUNG YUDA PRAYOGO</h1>
+    <p>IT SUPPORT</p>
+    <div class="header-contact">
+      <p>
+        📞 <a href="tel:+6285773214572">+62 857-7321-4572</a> | 
+        ✉️ <a href="mailto:agungyudaprayogojob@gmail.com">agungyudaprayogojob@gmail.com</a> | 
+        💼 <a href="https://www.linkedin.com/in/agung-yuda-prayogo" target="_blank">linkedin.com/in/agung-yuda-prayogo</a>
+      </p>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>Tentang Saya</h2>
+    <p>Lulusan S1 Teknik Informatika, minat di IT Support, cepat belajar, siap bekerja sama dan mendukung operasional IT.</p>
+  </section>
+
+  <section id="skills">
+    <h2>Keahlian</h2>
+    <h3>Hard Skills</h3>
+    <ul>
+      <li>Networking (Troubleshooting & Configuration)</li>
+      <li>Database Management (MySQL, SQL)</li>
+      <li>Hardware & Software (Installation, Maintenance, Repair)</li>
+      <li>System & Network Administration</li>
+      <li>Remote Access (TeamViewer, AnyDesk)</li>
+    </ul>
+    <h3>Soft Skills</h3>
+    <ul>
+      <li>Komunikasi Efektif</li>
+      <li>Kerja Tim</li>
+      <li>Pemecahan Masalah</li>
+      <li>Disiplin & Tanggung Jawab</li>
+      <li>Belajar Mandiri</li>
+      <li>Berfikir Kritis</li>
+    </ul>
+  </section>
+
+  <section id="berkas">
+    <h2>Berkas</h2>
+    <div class="preview-container">
+      <div class="preview-item">
+        <h4>Curriculum Vitae (CV)</h4>
+        <a href="assets/berkas/AGUNG YUDA PRAYOGO CV IT SUPPORT.pdf" target="_blank" class="open-link">🔗 Buka</a>
+      </div>
+      <div class="preview-item">
+        <h4>SKL/Ijazah</h4>
+        <a href="assets/berkas/SKL.pdf" target="_blank" class="open-link">🔗 Buka</a>
+      </div>
+      <div class="preview-item">
+        <h4>Sertifikat</h4>
+        <a href="assets/berkas/Sertifikat.pdf" target="_blank" class="open-link">🔗 Buka</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Proyek / Dokumentasi</h2>
+    <div class="preview-container">
+      <!-- Portfolio Website -->
+      <div class="preview-item">
+        <h4>Portfolio Website</h4>
+        <p>Membuat Portfolio Basis Website</p>
+        <a href="projects/portfolio-website/index.html" target="_blank" class="open-link">🔗 Buka</a>
+      </div>
+
+      <!-- Networking -->
+      <div class="preview-item">
+        <h4>Networking</h4>
+        <p>Konfigurasi Jaringan Client-Server</p>
+        <a href="projects/networking/konfigurasi.pdf" target="_blank" class="open-link">🔗 Buka</a>
+      </div>
+
+      <!-- Project Lain -->
+      <div class="preview-item">
+        <h4>Project Lain</h4>
+        <p>File dokumentasi tambahan</p>
+        <a href="projects/project-lain/file1.pdf" target="_blank" class="open-link">🔗 Buka</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🟡 Tambahkan script ini SEBELUM </body> -->
+  <script>
+  (function () {
+    const codeExtensions = ["html","htm","css","js","json","cpp","c","h","java","py","txt","md"];
+
+    function escapeHtml(s) {
+      return s.replace(/&/g,'&amp;')
+              .replace(/</g,'&lt;')
+              .replace(/>/g,'&gt;');
+    }
+
+    function isCodeFile(url) {
+      const p = url.split('?')[0].split('#')[0];
+      const ext = p.split('.').pop().toLowerCase();
+      return codeExtensions.includes(ext);
+    }
+
+    function tryFetchAndShow(url, title) {
+      if (location.protocol === 'file:') {
+        alert("Preview kode tidak bisa dijalankan dari file://\nGunakan Live Server (http://127.0.0.1:5500)");
+        return;
+      }
+
+      fetch(url)
+        .then(res => {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.text();
+        })
+        .then(text => {
+          const win = window.open("", "_blank");
+          if (!win) {
+            alert("Pop-up diblokir. Aktifkan pop-up agar preview muncul.");
+            return;
+          }
+          win.document.write(`
+            <meta charset="utf-8">
+            <title>Preview ${title}</title>
+            <style>
+              body {
+                background:#0f1720;
+                color:#e6eef6;
+                font-family: Consolas, monospace;
+                padding: 20px;
+              }
+              pre {
+                white-space: pre;
+                overflow-x: auto;
+                background: #071022;
+                padding: 15px;
+                border-radius: 8px;
+              }
+            </style>
+            <h2>Preview kode — ${title}</h2>
+            <pre>${escapeHtml(text)}</pre>
+          `);
+          win.document.close();
+        })
+        .catch(err => alert("Gagal mengambil file: " + err.message));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll("a.open-link").forEach(a => {
+        const href = a.getAttribute('href') || "";
+        if (!href) return;
+
+        a.addEventListener('click', function (ev) {
+          const hrefVal = this.getAttribute('href');
+          if (!hrefVal) return;
+
+          if (isCodeFile(hrefVal)) {
+            ev.preventDefault();
+            tryFetchAndShow(hrefVal, hrefVal.split('/').pop());
+          }
+        });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
