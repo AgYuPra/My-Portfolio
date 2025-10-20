@@ -97,3 +97,56 @@ ul {
 .open-link:hover {
   text-decoration: underline;
 }
+
+/* ====== RESPONSIVE DESIGN ====== */
+
+/* Tablet (lebar layar max 768px) */
+@media (max-width: 768px) {
+  section {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .preview-container {
+    justify-content: center;
+  }
+
+  .preview-item {
+    width: 45%;
+  }
+
+  .profile-img {
+    width: 130px;
+    height: 160px;
+  }
+}
+
+/* HP (lebar layar max 480px) */
+@media (max-width: 480px) {
+  header {
+    padding: 15px;
+  }
+
+  .profile-img {
+    width: 110px;
+    height: 130px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  section {
+    margin: 15px 8px;
+    padding: 12px;
+  }
+
+  .preview-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .preview-item {
+    width: 90%;
+  }
+}
