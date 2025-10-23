@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🔹 Ubah agar responsif -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio - Agung Yuda Prayogo</title>
   <link rel="stylesheet" href="style.css">
 
@@ -24,23 +24,17 @@
   </style>
 </head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=900">
-  <title>Portfolio - Agung Yuda Prayogo</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-  <!-- 🔒 Script proteksi tambahan -->
-  <script>
+<!-- 🔒 Script proteksi tambahan -->
+<script>
   // Matikan klik kanan, copy, inspect, save as
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener('selectstart', e => e.preventDefault());
   document.addEventListener('copy', e => e.preventDefault());
 
   document.addEventListener('keydown', e => {
-    if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) e.preventDefault(); // Ctrl+S, Ctrl+U, Ctrl+P
-    if (e.key === 'F12') e.preventDefault(); // F12 DevTools
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault(); // Ctrl+Shift+I
+    if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) e.preventDefault();
+    if (e.key === 'F12') e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
   });
 
   // Cegah long-press (mobile)
@@ -49,7 +43,7 @@
     touchTimer = setTimeout(()=>{}, 700);
   }, {passive:true});
   document.addEventListener('touchend', () => clearTimeout(touchTimer));
-  </script>
+</script>
 
 <body>
   <header>
