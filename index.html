@@ -1,49 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
-<head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=900">
   <title>Portfolio - Agung Yuda Prayogo</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- 🔒 Tambahan CSS anti klik kanan / long press -->
-  <style>
-    body {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none; /* blok long press save image di iOS */
-    }
-    img, a {
-      -webkit-touch-callout: none;
-      pointer-events: auto;
-    }
-  </style>
 </head>
-
-<!-- 🔒 Script proteksi tambahan -->
-<script>
-  // Matikan klik kanan, copy, inspect, save as
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('selectstart', e => e.preventDefault());
-  document.addEventListener('copy', e => e.preventDefault());
-
-  document.addEventListener('keydown', e => {
-    if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) e.preventDefault();
-    if (e.key === 'F12') e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
-  });
-
-  // Cegah long-press (mobile)
-  let touchTimer;
-  document.addEventListener('touchstart', () => {
-    touchTimer = setTimeout(()=>{}, 700);
-  }, {passive:true});
-  document.addEventListener('touchend', () => clearTimeout(touchTimer));
-</script>
 
 <body>
   <header>
